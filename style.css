@@ -6,6 +6,11 @@ h1 {
   text-align: center;
 }
 
+#btn-row {
+  display: flex;
+  justify-content: center;
+}
+
 #board {
   margin: 0 auto;
   border: 1px solid black;
