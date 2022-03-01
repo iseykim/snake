@@ -39,24 +39,29 @@ function event() {
   const curr = document.getElementById(START)
   curr.classList.add('active')
 
-  // just remove tail and add to head on every iteration
-  let key = `0-1`
-  // this will work for single digit only
-
-  // get new
+  // KEY CONST
+  let KEY = `0-1`
   // y = +y + dy
 
   const setId = setInterval(() => {
-    let [x, y] = [key[0], key[key.length - 1]]
+    let [x, y] = [KEY[0], KEY[KEY.length - 1]]
+    console.log(x, y)
+    if (+x >= ROWS - 1) {
+      clearInterval(setId)
+      return // ! GAME OVER
+    }
+
     x = +x + dx
-    key = `${x}-${y}`
-    const c = document.getElementById(key)
+    KEY = `${x}-${y}`
+    const c = document.getElementById(KEY)
     c.classList.add('active')
+
+    // Clear Interval
   }, 300)
 
   setTimeout(() => {
     clearInterval(setId)
-  }, 900)
+  }, 8000)
 }
 
 testBtn.addEventListener('click', event)
