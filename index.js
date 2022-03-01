@@ -45,24 +45,29 @@ function event() {
   // y = +y + dy
 
   window.tick = setInterval(() => {
+    console.log(' ===>>> tick')
     let [x, y] = [KEY[0], KEY[KEY.length - 1]]
-    console.log(x, y)
-    if (+x >= ROWS - 1) {
+    x = +x
+    y = +y
+    console.log(`x: ${x}, y: ${y}`)
+    // BUG: does not work when it's zero on START
+    if (x >= ROWS - 1 || x < 0 || y >= ROWS - 1 || y < 0) {
+      console.log('Game Over!')
       clearInterval(window.tick)
       return // ! GAME OVER
     }
 
-    x = +x + dx
-    y = +y + dy
+    x = x + dx
+    y = y + dy
     KEY = `${x}-${y}`
+    console.log('updated KEY', KEY)
     const c = document.getElementById(KEY)
     c.classList.add('active')
-
   }, TICK)
 
-  setTimeout(() => {
-    clearInterval(window.tick)
-  }, 8000)
+  // setTimeout(() => {
+  //   clearInterval(window.tick)
+  // }, 8000)
 }
 
 testBtn.addEventListener('click', event)
@@ -79,30 +84,36 @@ function reset() {
 document.addEventListener('keydown', ({ key, code }) => {
   // console.log('key:', key, 'code', code)
   if (key === 'j') {
+    console.log('j')
     dx = 1
     dy = 0
   }
 
   if (key === 'k') {
+    console.log('k')
     dx = -1
     dy = 0
+    console.log(dx, dy)
   }
 
   if (key === 'h') {
+    console.log('h')
     dx = 0
     dy = -1
   }
 
   if (key === 'l') {
+    console.log('l')
     dx = 0
     dy = 1
   }
 
-  if ((key = ' ')) {
+  if (key === ' ') {
     // if false, start game
     if (!game) {
       game = !game
     } else {
+      console.log('reset?')
       reset()
     }
   }
