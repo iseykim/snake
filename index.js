@@ -5,7 +5,7 @@ const resetBtn = document.getElementById('reset-button')
 
 /* Global State */
 const ROWS = 8
-const START = '0-0'
+const START = '1-1'
 const SET = new Set()
 const TICK = 300
 let dx = 1
@@ -25,7 +25,7 @@ for (let i = 0; i < ROWS; i++) {
 board.style.gridTemplateColumns = `repeat(${ROWS}, 50px)`
 
 /* Module */
-import Body from './snake.js'
+// import Body from './snake.js'
 
 /**
  * On each iteration:
@@ -50,8 +50,8 @@ function event() {
     x = +x
     y = +y
     console.log(`x: ${x}, y: ${y}`)
-    // BUG: does not work when it's zero on START
-    if (x >= ROWS - 1 || x < 0 || y >= ROWS - 1 || y < 0) {
+    // * Fix: by having snake start
+    if (x >= ROWS - 1 || x <= 0 || y >= ROWS - 1 || y <= 0) {
       console.log('Game Over!')
       clearInterval(window.tick)
       return // ! GAME OVER
@@ -60,14 +60,10 @@ function event() {
     x = x + dx
     y = y + dy
     KEY = `${x}-${y}`
-    console.log('updated KEY', KEY)
     const c = document.getElementById(KEY)
     c.classList.add('active')
   }, TICK)
 
-  // setTimeout(() => {
-  //   clearInterval(window.tick)
-  // }, 8000)
 }
 
 testBtn.addEventListener('click', event)
@@ -82,38 +78,31 @@ function reset() {
 
 // Keyboard Events: move to init
 document.addEventListener('keydown', ({ key, code }) => {
-  // console.log('key:', key, 'code', code)
   if (key === 'j') {
-    console.log('j')
     dx = 1
     dy = 0
   }
 
   if (key === 'k') {
-    console.log('k')
     dx = -1
     dy = 0
     console.log(dx, dy)
   }
 
   if (key === 'h') {
-    console.log('h')
     dx = 0
     dy = -1
   }
 
   if (key === 'l') {
-    console.log('l')
     dx = 0
     dy = 1
   }
 
   if (key === ' ') {
-    // if false, start game
     if (!game) {
       game = !game
     } else {
-      console.log('reset?')
       reset()
     }
   }
