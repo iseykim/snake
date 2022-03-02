@@ -1,4 +1,3 @@
-// Node
 export class Node {
   constructor(key) {
     this.key = key
@@ -13,9 +12,7 @@ export class Snake {
     this.tail = head
   }
 
-  // pop the tail, do we need to keep it doubly linked?
   popTail() {
-    // check if head is tail
     if (this.head === this.tail) {
       this.head = null
       this.tail = null
@@ -28,12 +25,10 @@ export class Snake {
   }
 
   addHead(node) {
-    // if empty, head is simply the node
     if (!this.head) {
       this.head = node
       this.tail = node
     } else {
-      // x -> new head
       const oldHead = this.head
       this.head = node
       node.next = oldHead

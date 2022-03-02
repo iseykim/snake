@@ -5,7 +5,7 @@ import { Snake, Node } from './snake.js'
  * index.js will hold global state
  * Tick logic
  */
-export const ROWS = 4
+export const ROWS = 8
 const START = '1-1'
 const SET = new Set()
 const TICK = 500
@@ -19,26 +19,20 @@ const snake = new Snake(new Node(START))
 init()
 
 document.addEventListener('keydown', ({ key }) => {
-  // temporary
   if (key === 'i') event()
 })
 
 function event() {
   SET.add(START)
-  // const curr = document.getElementById(START)
-  // curr.classList.add('active')
-
   let KEY = START
 
   window.tick = setInterval(() => {
     console.log(`TICK => x: ${x}, y: ${y}`)
     
-    // add to head
-
     if (x > ROWS - 1 || x < 0 || y > ROWS - 1 || y < 0) {
       console.log('Game Over!')
       clearInterval(window.tick)
-      return // ! GAME OVER
+      return
     }
 
     KEY = `${x}-${y}`
@@ -76,7 +70,6 @@ document.addEventListener('keydown', ({ key }) => {
     dy = 1
   }
 
-  // clears board
   if (key === ' ') {
     clearInterval(window.tick)
     const grids = document.querySelectorAll('#board > div')
