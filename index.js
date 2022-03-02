@@ -1,57 +1,35 @@
-import init from './init.js'
+import init, { state } from './init.js'
 import { Snake, test } from './snake.js'
 
-export const ROWS = 8
+// export const ROWS = 10
+let { ROWS, dx, dy, x, y } = state 
 const SNAKE_COORDINATES = ['0-0', '1-0', '2-0']
 const SET = new Set()
-const TICK = 500
-let dx = 1
-let dy = 0
-let x = 2 // ! add x, y to be dependent on snake head
-let y = 0
+const TICK = 200
+let KEY
+// let dx = 1
+// let dy = 0
+// let x = 2 // ! add x, y to be dependent on snake head
+// let y = 0
 
-// Initialize snake
+// TODO: move this into init
 const snake = new Snake()
-SNAKE_COORDINATES.forEach(key => {
-  snake.addHead(key)
-})
+SNAKE_COORDINATES.forEach(key => snake.addHead(key))
 // test()
 
 init()
 
 document.addEventListener('keydown', ({ key }) => {
-  if (key === 'i') event()
+  if (key === 'i') start()
 })
 
-function event() {
+function start() {
   SNAKE_COORDINATES.forEach(c => {
     SET.add(c)
     document.getElementById(c).classList.add('active')
   })
 
-  let KEY = snake.head.key
-
-  window.tick = setInterval(() => {
-    console.log(`TICK => x: ${x}, y: ${y}`)
-
-    if (x > ROWS - 1 || x < 0 || y > ROWS - 1 || y < 0) {
-      console.log('Game Over!')
-      clearInterval(window.tick)
-      return
-    }
-
-    KEY = `${x}-${y}`
-    SET.add(KEY)
-    snake.addHead(KEY)
-    console.log(SET)
-    console.log(snake)
-
-    const c = document.getElementById(KEY)
-    c.classList.add('active')
-
-    x = x + dx
-    y = y + dy
-  }, TICK)
+  window.tick = setInterval(interval, TICK)
 }
 
 document.addEventListener('keydown', ({ key }) => {
@@ -81,3 +59,25 @@ document.addEventListener('keydown', ({ key }) => {
     grids.forEach(g => g.classList.remove('active'))
   }
 })
+
+function interval() {
+  console.log(`TICK => x: ${x}, y: ${y}`)
+
+  if (x > ROWS - 1 || x < 0 || y > ROWS - 1 || y < 0) {
+    console.log('Game Over!')
+    clearInterval(window.tick)
+    return
+  }
+
+  KEY = `${x}-${y}`
+  SET.add(KEY)
+  snake.addHead(KEY)
+  console.log(SET)
+  console.log(snake)
+
+  const c = document.getElementById(KEY)
+  c.classList.add('active')
+
+  x = x + dx
+  y = y + dy
+}

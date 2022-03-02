@@ -2,6 +2,11 @@
 
 Classic Snake built using vanilla JavaScript
 
-## FEATURES
+## TODO
+
+- [ ] `Space` => `i` broken
+- [ ] Handle styling
+
+## STRETCH
 
 - [ ] Add Typescript
