@@ -16,11 +16,13 @@ export class Snake {
     if (this.head === this.tail) {
       this.head = null
       this.tail = null
+      return head.key
     } else {
       const oldTail = this.tail
       this.tail = oldTail.prev
       oldTail.prev = null
       this.tail.next = null
+      return oldTail.key
     }
   }
 

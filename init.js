@@ -1,15 +1,18 @@
-// import { ROWS } from './index.js'
-export const state = {
-  ROWS: 10,
-  dx: 1,
-  dy: 0,
-  x: 2,
-  y: 0,
-}
-
-let { ROWS, dx, dy, x, y } = state
+import { ROWS, S, SET } from './index.js'
+import { Snake, test } from './snake.js'
 
 const board = document.getElementById('board')
+const SNAKE_COORDINATES = ['0-0', '1-0', '2-0']
+
+export function iSnake() {
+  const snake = new Snake()
+  SNAKE_COORDINATES.forEach(key => {
+    snake.addHead(key)
+    document.getElementById(key).classList.add('active')
+    SET.add(key)
+  })
+  return snake
+}
 
 export default function init() {
   for (let i = 0; i < ROWS; i++) {
@@ -22,27 +25,25 @@ export default function init() {
 
   board.style.gridTemplateColumns = `repeat(${ROWS}, 50px)`
 
-  // ? Deal with import export logic
-  // ? Can I update state from here?
-  function setKeyDowns(key, dx, dy) {
+  function setKeyDowns(key) {
     if (key === 'j') {
-      dx = 1
-      dy = 0
+      S.dx = 1
+      S.dy = 0
     }
 
     if (key === 'k') {
-      dx = -1
-      dy = 0
+      S.dx = -1
+      S.dy = 0
     }
 
     if (key === 'h') {
-      dx = 0
-      dy = -1
+      S.dx = 0
+      S.dy = -1
     }
 
     if (key === 'l') {
-      dx = 0
-      dy = 1
+      S.dx = 0
+      S.dy = 1
     }
 
     if (key === ' ') {
@@ -50,7 +51,9 @@ export default function init() {
       const grids = document.querySelectorAll('#board > div')
       grids.forEach(g => g.classList.remove('active'))
     }
+
+    if (key === 't') test()
   }
 
-  document.addEventListener('keydown', ({ key }) => setKeyDowns(key, dx, dy))
+  document.addEventListener('keydown', ({ key }) => setKeyDowns(key))
 }
