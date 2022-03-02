@@ -15,9 +15,16 @@ class Snake {
 
   // pop the tail, do we need to keep it doubly linked?
   popTail() {
-    const oldTail = this.tail
-    // tail should point to the parent, so we do need double
-    this.tail = nnew
+    // check if head is tail
+    if (this.head === this.tail) {
+      this.head = null
+      this.tail = null
+    } else {
+      const oldTail = this.tail
+      this.tail = oldTail.prev
+      oldTail.prev = null
+      this.tail.next = null
+    }
   }
 
   addHead(node) {
@@ -35,19 +42,29 @@ class Snake {
   }
 }
 
-/* Makeshift Test */
-const n1 = new Node(1)
-const n2 = new Node(2)
-const n3 = new Node(3)
+function test() {
+  const n1 = new Node(1)
+  const n2 = new Node(2)
+  const n3 = new Node(3)
 
-const snake = new Snake(n3)
-snake.addHead(n2)
-snake.addHead(n1)
+  // 1 -> 2 -> 3
+  const snake = new Snake(n3)
+  snake.addHead(n2)
+  snake.addHead(n1)
 
-console.log(snake.head)
-console.log(snake.head.next)
-console.log(snake.head.next.next)
+  // Log
+  console.log(snake.head.key)
+  console.log(snake.head.next.key)
+  console.log(snake.head.next.next.key)
 
-console.log(snake.tail)
-console.log(snake.tail.prev)
-console.log(snake.tail.prev.prev)
+  console.log(snake.tail.key)
+  console.log(snake.tail.prev.key)
+  console.log(snake.tail.prev.prev.key)
+
+  snake.popTail()
+  console.log(snake.head.key)
+  console.log(snake.head.next.key)
+  console.log(snake.head.next.next) // null
+}
+
+test()
