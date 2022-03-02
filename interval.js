@@ -1,5 +1,6 @@
 import { S, ROWS, SET } from './index.js'
-import { snake } from './init.js'
+// import { snake } from './init.js'
+// const snake = S.snake
 
 export function createApple() {
   const appl = document.getElementById(`${S.ax}-${S.ay}`)
@@ -47,7 +48,7 @@ export function interval() {
 
   // Move Forwards
   SET.add(S.KEY)
-  snake.addHead(S.KEY)
+  S.snake.addHead(S.KEY)
   const c = document.getElementById(S.KEY)
   c.classList.add('active')
 
@@ -55,7 +56,7 @@ export function interval() {
   if (c.classList.contains('apple')) {
     createApple()
   } else {
-    const tail = snake.popTail()
+    const tail = S.snake.popTail()
     const t = document.getElementById(tail)
     t.classList.remove('active')
     SET.delete(tail)

@@ -66,7 +66,7 @@ function setKeyDowns(key) {
     grids.forEach(g => g.classList.remove('active'))
     const a = document.getElementById(`${S.ax}-${S.ay}`)
     a.classList.remove('apple')
-    // TODO: create snake? or grab snake reference
+    S.snake = createSnake()
     createInitialApple()
     colorSnakeBody()
   }
@@ -80,14 +80,17 @@ function setKeyDowns(key) {
  */
 const SNAKE_COORDINATES = ['0-0', '1-0', '2-0']
 
-function createSnake() {
+export function createSnake() {
   const s = new Snake()
   SNAKE_COORDINATES.forEach(key => {
     s.addHead(key)
   })
+  console.log('returned snake', s)
   return s
 }
-export const snake = createSnake()
+
+// S.snake = createSnake()
+// export const snake = createSnake()
 // SNAKE_COORDINATES.forEach(key => {
 //   snake.addHead(key)
 // })
