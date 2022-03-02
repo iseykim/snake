@@ -1,5 +1,5 @@
 // Node
-class Node {
+export class Node {
   constructor(key) {
     this.key = key
     this.next = null
@@ -7,7 +7,7 @@ class Node {
   }
 }
 
-class Snake {
+export class Snake {
   constructor(head) {
     this.head = head
     this.tail = head
@@ -67,4 +67,4 @@ function test() {
   console.log(snake.head.next.next) // null
 }
 
-test()
+// test()
