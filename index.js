@@ -24,6 +24,7 @@ let KEY
  */
 init()
 const snake = iSnake()
+createApple()
 
 function interval() {
   S.x = S.x + S.dx
@@ -78,3 +79,14 @@ function interval() {
 //     grids.forEach(g => g.classList.remove('active'))
 //   }
 // })
+
+function createApple() {
+  let x, y
+  do {
+    x = Math.floor(Math.random() * ROWS)
+    y = Math.floor(Math.random() * ROWS)
+  } while (SET.has(`${x}-${y}`))
+
+  const d = document.getElementById(`${x}-${y}`)
+  d.classList.add('apple')
+}

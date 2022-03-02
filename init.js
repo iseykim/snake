@@ -25,6 +25,7 @@ export default function init() {
 
   board.style.gridTemplateColumns = `repeat(${ROWS}, 50px)`
 
+
   function setKeyDowns(key) {
     if (key === 'j') {
       S.dx = 1
