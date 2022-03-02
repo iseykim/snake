@@ -2,22 +2,20 @@ import init from './init.js'
 import { Snake, test } from './snake.js'
 
 export const ROWS = 8
-const START = '1-1'
-const START_STRING = '0-0 1-0 2-0'
+const SNAKE_COORDINATES = ['0-0', '1-0', '2-0']
 const SET = new Set()
 const TICK = 500
 let dx = 1
 let dy = 0
-let x = 1
-let y = 1
+let x = 2 // ! add x, y to be dependent on snake head
+let y = 0
 
 // Initialize snake
 const snake = new Snake()
-START_STRING.split(' ').reverse().forEach(key => {
+SNAKE_COORDINATES.forEach(key => {
   snake.addHead(key)
 })
 // test()
-console.log(snake)
 
 init()
 
@@ -26,12 +24,16 @@ document.addEventListener('keydown', ({ key }) => {
 })
 
 function event() {
-  SET.add(START)
-  let KEY = START
+  SNAKE_COORDINATES.forEach(c => {
+    SET.add(c)
+    document.getElementById(c).classList.add('active')
+  })
+
+  let KEY = snake.head.key
 
   window.tick = setInterval(() => {
     console.log(`TICK => x: ${x}, y: ${y}`)
-    
+
     if (x > ROWS - 1 || x < 0 || y > ROWS - 1 || y < 0) {
       console.log('Game Over!')
       clearInterval(window.tick)
@@ -40,9 +42,9 @@ function event() {
 
     KEY = `${x}-${y}`
     SET.add(KEY)
-    snake.addHead(new Node(KEY))
+    snake.addHead(KEY)
     console.log(SET)
-    console.log(snake) 
+    console.log(snake)
 
     const c = document.getElementById(KEY)
     c.classList.add('active')
