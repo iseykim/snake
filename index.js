@@ -14,6 +14,8 @@ export const S = {
   y: 0,
   dx: 1,
   dy: 0,
+  ax: 0,
+  ay: 0
 }
 export const SET = new Set()
 const TICK = 500
@@ -24,7 +26,6 @@ let KEY
  */
 init()
 const snake = iSnake()
-createApple()
 
 function interval() {
   S.x = S.x + S.dx
@@ -32,24 +33,26 @@ function interval() {
   KEY = `${S.x}-${S.y}`
   console.log(`🟢  KEY `, KEY)
 
-  // Check for out of bounds
+  // Check for out of bounds and collision
   if (S.x > ROWS - 1 || S.x < 0 || S.y > ROWS - 1 || S.y < 0 || SET.has(KEY)) {
     console.log('❤️')
     clearInterval(window.tick)
     return
   }
 
-  // Check for collision
-
+  // Check if apple
   SET.add(KEY)
   snake.addHead(KEY)
   const c = document.getElementById(KEY)
   c.classList.add('active')
-
-  const tail = snake.popTail()
-  const t = document.getElementById(tail)
-  t.classList.remove('active')
-  SET.delete(tail)
+  if (c.classList.contains('apple')) {
+    createApple()
+  } else {
+    const tail = snake.popTail()
+    const t = document.getElementById(tail)
+    t.classList.remove('active')
+    SET.delete(tail)
+  }
 }
 
 // document.addEventListener('keydown', ({ key }) => {
@@ -81,12 +84,17 @@ function interval() {
 // })
 
 function createApple() {
+  const oldApple = document.getElementById(`${S.ax}-${S.ay}`)
+  oldApple.classList.remove('apple')
+
   let x, y
   do {
     x = Math.floor(Math.random() * ROWS)
     y = Math.floor(Math.random() * ROWS)
   } while (SET.has(`${x}-${y}`))
 
+  S.ax = x
+  S.ay = y
   const d = document.getElementById(`${x}-${y}`)
   d.classList.add('apple')
 }

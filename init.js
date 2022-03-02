@@ -25,7 +25,6 @@ export default function init() {
 
   board.style.gridTemplateColumns = `repeat(${ROWS}, 50px)`
 
-
   function setKeyDowns(key) {
     if (key === 'j') {
       S.dx = 1
@@ -57,4 +56,12 @@ export default function init() {
   }
 
   document.addEventListener('keydown', ({ key }) => setKeyDowns(key))
+
+  // Create an initial apple and update State
+  let x = Math.floor(Math.random() * ROWS + 2)
+  let y = Math.floor(Math.random() * ROWS + 2)
+  S.ax = x
+  S.ay = y
+  const n = document.getElementById(`${x}-${y}`)
+  n.classList.add('apple')
 }
