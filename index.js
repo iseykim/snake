@@ -1,12 +1,9 @@
 import init from './init.js'
-import { Snake, Node } from './snake.js'
+import { Snake, test } from './snake.js'
 
-/**
- * index.js will hold global state
- * Tick logic
- */
 export const ROWS = 8
 const START = '1-1'
+const START_STRING = '0-0 1-0 2-0'
 const SET = new Set()
 const TICK = 500
 let dx = 1
@@ -14,7 +11,13 @@ let dy = 0
 let x = 1
 let y = 1
 
-const snake = new Snake(new Node(START))
+// Initialize snake
+const snake = new Snake()
+START_STRING.split(' ').reverse().forEach(key => {
+  snake.addHead(key)
+})
+// test()
+console.log(snake)
 
 init()
 

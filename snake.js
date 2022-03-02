@@ -7,7 +7,7 @@ export class Node {
 }
 
 export class Snake {
-  constructor(head) {
+  constructor(head = null) {
     this.head = head
     this.tail = head
   }
@@ -24,7 +24,8 @@ export class Snake {
     }
   }
 
-  addHead(node) {
+  addHead(key) {
+    const node = new Node(key)
     if (!this.head) {
       this.head = node
       this.tail = node
@@ -37,29 +38,25 @@ export class Snake {
   }
 }
 
-function test() {
-  const n1 = new Node(1)
-  const n2 = new Node(2)
-  const n3 = new Node(3)
+export function test() {
+  const snake = new Snake()
+  snake.addHead(3)
+  snake.addHead(2)
+  snake.addHead(1)
 
-  // 1 -> 2 -> 3
-  const snake = new Snake(n3)
-  snake.addHead(n2)
-  snake.addHead(n1)
-
-  // Log
+  console.log('Snake from head: 1 -> 2 -> 3')
   console.log(snake.head.key)
   console.log(snake.head.next.key)
   console.log(snake.head.next.next.key)
 
+  console.log('Snake from tail: 3 -> 2 -> 1')
   console.log(snake.tail.key)
   console.log(snake.tail.prev.key)
   console.log(snake.tail.prev.prev.key)
 
   snake.popTail()
+  console.log('Snake from head: 1 -> 2 -> null')
   console.log(snake.head.key)
   console.log(snake.head.next.key)
-  console.log(snake.head.next.next) // null
+  console.log(snake.head.next.next)
 }
-
-// test()
