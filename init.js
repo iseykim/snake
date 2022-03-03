@@ -14,7 +14,7 @@ export default function init() {
     }
   }
 
-  board.style.gridTemplateColumns = `repeat(${rows}, 50px)`
+  board.style.gridTemplateColumns = `repeat(${rows}, 30px)`
 
   document.addEventListener('keydown', ({ key }) => setKeyDowns(key))
 

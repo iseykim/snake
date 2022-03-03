@@ -10,7 +10,7 @@ export const S = {
   key: null,
   snake: createSnake(),
   set: new Set(),
-  tick: 500,
+  tick: 200,
   rows: 10
 }
 

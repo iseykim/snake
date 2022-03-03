@@ -1,12 +1,15 @@
 # Snake
 
-Classic Snake built using vanilla JavaScript
+Classic Snake game built with vanilla JavaScript
 
 ## TODO
 
-- [ ] `Space` => `i` broken
-- [ ] Handle styling
-
+- [X] Reset working
+- [X] Handle styling
+- [ ] Add inputs
+- [X] 🍎
+- [ ] Snake body
 ## STRETCH
 
-- [ ] Add Typescript
+- [X] ~~Add Typescript~~ NAH, too much work
+- [ ] couple CSS height/width

@@ -19,14 +19,20 @@ h1 {
 }
 
 #board div {
-  height: 50px;
+  height: 30px;
   border: 1px solid #000;
 }
 
 .active {
-  background: blue;
+  background: rgb(108, 108, 186);
 }
 
 .apple {
-  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apple::before {
+  content: '🍎';
 }
