@@ -1,8 +1,5 @@
 import init, { createSnake } from './init.js'
 
-// export const ROWS = 10
-// export const S.set = new Set()
-// export const TICK = 500
 export const S = {
   x: 2,
   y: 0,
@@ -17,5 +14,4 @@ export const S = {
   rows: 10
 }
 
-// Initialize
 init()

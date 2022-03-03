@@ -2,17 +2,6 @@ import { S } from './index.js'
 import { Snake, test } from './snake.js'
 import { interval, createInitialApple } from './interval.js'
 
-const resetS = {
-  x: 2,
-  y: 0,
-  dx: 1,
-  dy: 0,
-  ax: 0,
-  key: null,
-  set: new Set()
-}
-
-
 export default function init() {
   const board = document.getElementById('board')
   const { rows } = S
@@ -40,12 +29,22 @@ function colorSnakeBody() {
   })
 }
 
+const resetS = {
+  x: 2,
+  y: 0,
+  dx: 1,
+  dy: 0,
+  ax: 0,
+  key: null,
+  set: new Set(),
+}
+
 /**
  * Key downs
- *
- * hjkl: directions
+ * h: left, j: down, k: up, l: right
  * i: start
- * t: test Doubly Linked List in browser
+ * t: test linked list in browser
+ * space: reset
  */
 function setKeyDowns(key) {
   if (key === 'j') {
@@ -76,7 +75,7 @@ function setKeyDowns(key) {
     a.classList.remove('apple')
 
     // reset state
-    Object.keys(resetS).forEach((k) => S[k] = resetS[k])
+    Object.keys(resetS).forEach(k => (S[k] = resetS[k]))
     S.snake = createSnake()
     createInitialApple()
     colorSnakeBody()
@@ -86,11 +85,7 @@ function setKeyDowns(key) {
   if (key === 't') test()
 }
 
-/**
- * Initial Snake
- */
 const SNAKE_COORDINATES = ['0-0', '1-0', '2-0']
-
 export function createSnake() {
   const s = new Snake()
   SNAKE_COORDINATES.forEach(key => {
@@ -98,9 +93,3 @@ export function createSnake() {
   })
   return s
 }
-
-// S.snake = createSnake()
-// export const snake = createSnake()
-// SNAKE_COORDINATES.forEach(key => {
-//   snake.addHead(key)
-// })

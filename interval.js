@@ -1,6 +1,4 @@
 import { S } from './index.js'
-// import { snake } from './init.js'
-// const snake = S.snake
 
 export function createApple() {
   const appl = document.getElementById(`${S.ax}-${S.ay}`)
