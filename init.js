@@ -1,34 +1,42 @@
-import { ROWS, S, SET, TICK } from './index.js'
+import { S } from './index.js'
 import { Snake, test } from './snake.js'
 import { interval, createInitialApple } from './interval.js'
 
-const board = document.getElementById('board')
+const resetS = {
+  x: 2,
+  y: 0,
+  dx: 1,
+  dy: 0,
+  ax: 0,
+  key: null,
+  set: new Set()
+}
+
 
 export default function init() {
-  // Create Board
-  for (let i = 0; i < ROWS; i++) {
-    for (let j = 0; j < ROWS; j++) {
+  const board = document.getElementById('board')
+  const { rows } = S
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < rows; j++) {
       const row = document.createElement('div')
       row.setAttribute('id', `${i}-${j}`)
       board.appendChild(row)
     }
   }
 
-  board.style.gridTemplateColumns = `repeat(${ROWS}, 50px)`
+  board.style.gridTemplateColumns = `repeat(${rows}, 50px)`
 
   document.addEventListener('keydown', ({ key }) => setKeyDowns(key))
 
-  // Create an initial apple and update State
   createInitialApple()
-
-  // Color Snake Body
   colorSnakeBody()
 }
 
 function colorSnakeBody() {
   SNAKE_COORDINATES.forEach(key => {
     document.getElementById(key).classList.add('active')
-    SET.add(key)
+    S.set.add(key)
   })
 }
 
@@ -66,12 +74,15 @@ function setKeyDowns(key) {
     grids.forEach(g => g.classList.remove('active'))
     const a = document.getElementById(`${S.ax}-${S.ay}`)
     a.classList.remove('apple')
+
+    // reset state
+    Object.keys(resetS).forEach((k) => S[k] = resetS[k])
     S.snake = createSnake()
     createInitialApple()
     colorSnakeBody()
   }
 
-  if (key === 'i') window.tick = setInterval(interval, TICK)
+  if (key === 'i') window.tick = setInterval(interval, S.tick)
   if (key === 't') test()
 }
 
@@ -85,7 +96,6 @@ export function createSnake() {
   SNAKE_COORDINATES.forEach(key => {
     s.addHead(key)
   })
-  console.log('returned snake', s)
   return s
 }
 

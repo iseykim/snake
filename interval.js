@@ -1,4 +1,4 @@
-import { S, ROWS, SET } from './index.js'
+import { S } from './index.js'
 // import { snake } from './init.js'
 // const snake = S.snake
 
@@ -8,9 +8,9 @@ export function createApple() {
 
   let x, y
   do {
-    x = Math.floor(Math.random() * ROWS)
-    y = Math.floor(Math.random() * ROWS)
-  } while (SET.has(`${x}-${y}`))
+    x = Math.floor(Math.random() * S.rows)
+    y = Math.floor(Math.random() * S.rows)
+  } while (S.set.has(`${x}-${y}`))
 
   S.ax = x
   S.ay = y
@@ -19,8 +19,8 @@ export function createApple() {
 }
 
 export function createInitialApple() {
-  let x = Math.floor(Math.random() * (ROWS - 1) + 1)
-  let y = Math.floor(Math.random() * (ROWS - 1) + 1)
+  let x = Math.floor(Math.random() * (S.rows - 1) + 1)
+  let y = Math.floor(Math.random() * (S.rows - 1) + 1)
   S.ax = x
   S.ay = y
   const n = document.getElementById(`${x}-${y}`)
@@ -30,35 +30,35 @@ export function createInitialApple() {
 export function interval() {
   S.x = S.x + S.dx
   S.y = S.y + S.dy
-  S.KEY = `${S.x}-${S.y}`
-  console.log(`🟢  S.KEY `, S.KEY)
+  S.key = `${S.x}-${S.y}`
+  console.log(`🟢  S.key `, S.key)
 
-  // Out of bounds & collision
+  // out of bounds & collision
   if (
-    S.x > ROWS - 1 ||
+    S.x > S.rows - 1 ||
     S.x < 0 ||
-    S.y > ROWS - 1 ||
+    S.y > S.rows - 1 ||
     S.y < 0 ||
-    SET.has(S.KEY)
+    S.set.has(S.key)
   ) {
     console.log('GAME OVER')
     clearInterval(window.tick)
     return
   }
 
-  // Move Forwards
-  SET.add(S.KEY)
-  S.snake.addHead(S.KEY)
-  const c = document.getElementById(S.KEY)
+  // move forwards
+  S.set.add(S.key)
+  S.snake.addHead(S.key)
+  const c = document.getElementById(S.key)
   c.classList.add('active')
 
-  // Apple Logic
+  // apple logic
   if (c.classList.contains('apple')) {
     createApple()
   } else {
     const tail = S.snake.popTail()
     const t = document.getElementById(tail)
     t.classList.remove('active')
-    SET.delete(tail)
+    S.set.delete(tail)
   }
 }
