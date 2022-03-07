@@ -30,7 +30,6 @@ export function interval() {
   S.x = S.x + S.dx
   S.y = S.y + S.dy
   S.key = `${S.x}-${S.y}`
-  console.log(`🟢  S.key `, S.key)
 
   // out of bounds & collision
   if (
@@ -42,6 +41,7 @@ export function interval() {
   ) {
     console.log('GAME OVER')
     clearInterval(window.tick)
+    alert('GAME OVER')
     return
   }
 
