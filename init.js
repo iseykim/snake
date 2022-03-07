@@ -37,6 +37,7 @@ const resetS = {
   ax: 0,
   key: null,
   set: new Set(),
+  score: 0
 }
 
 /**
@@ -69,7 +70,8 @@ function setKeyDowns(key) {
 
   if (key === ' ') {
     clearInterval(window.tick)
-    const grids = document.querySelectorAll('#board > div')
+    // get all boards that are active
+    const grids = document.querySelectorAll('.active')
     grids.forEach(g => g.classList.remove('active'))
     const a = document.getElementById(`${S.ax}-${S.ay}`)
     a.classList.remove('apple')
@@ -81,7 +83,27 @@ function setKeyDowns(key) {
     colorSnakeBody()
   }
 
-  if (key === 'i') window.tick = setInterval(interval, S.tick)
+  // change i into a toggle based on start?
+  if (key === 'i') {
+    if (!S.start) {
+      window.tick = setInterval(interval, S.tick)
+      S.start = true
+    } else {
+      clearInterval(window.tick)
+      // get all boards that are active
+      const grids = document.querySelectorAll('.active')
+      grids.forEach(g => g.classList.remove('active'))
+      const a = document.getElementById(`${S.ax}-${S.ay}`)
+      a.classList.remove('apple')
+
+      // reset state
+      Object.keys(resetS).forEach(k => (S[k] = resetS[k]))
+      S.snake = createSnake()
+      createInitialApple()
+      colorSnakeBody()
+      S.start = false
+    }
+  }
   if (key === 't') test()
 }
 

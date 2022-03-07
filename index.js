@@ -11,7 +11,9 @@ export const S = {
   snake: createSnake(),
   set: new Set(),
   tick: 200,
-  rows: 10
+  rows: 10,
+  start: false,
+  score: 0
 }
 
 init()

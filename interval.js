@@ -25,6 +25,7 @@ export function createInitialApple() {
   n.classList.add('apple')
 }
 
+const score = document.getElementById('score')
 export function interval() {
   S.x = S.x + S.dx
   S.y = S.y + S.dy
@@ -53,10 +54,13 @@ export function interval() {
   // apple logic
   if (c.classList.contains('apple')) {
     createApple()
+    S.score++
   } else {
     const tail = S.snake.popTail()
     const t = document.getElementById(tail)
     t.classList.remove('active')
     S.set.delete(tail)
   }
+  
+  score.innerText = S.score
 }
